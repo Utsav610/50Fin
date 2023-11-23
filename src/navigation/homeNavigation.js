@@ -12,7 +12,7 @@ import Home from '../screens/homeScreen';
 import Profile from '../screens/profile';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function HomeNavigation() {
+export default function HomeNavigation({navigation}) {
   const _renderIcon = (routeName, selectedTab) => {
     let icon = '';
 
@@ -64,11 +64,11 @@ export default function HomeNavigation() {
       <CurvedBottomBarExpo.Screen
         name="title1"
         position="LEFT"
-        component={() => <Home />}
+        component={() => <Home navigation={navigation}/>}
       />
       <CurvedBottomBarExpo.Screen
         name="title2"
-        component={() => <Profile />}
+        component={() => <Profile navigation={navigation}/>}
         position="RIGHT"
       />
     </CurvedBottomBarExpo.Navigator>

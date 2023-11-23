@@ -7,6 +7,7 @@ import LoginScreen from '../screens/loginScreen';
 import SignupScreen from '../screens/signupScreen';
 import HomeNavigation from './homeNavigation';
 import AmcScreen from '../screens/amcScreen';
+import Portfolio from '../screens/portfolio';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +50,14 @@ export default function FinanceNavigation() {
         <Stack.Screen
           name="Amc"
           component={AmcScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="Portfolio"
+          component={Portfolio}
           options={{
             headerShown: false,
           }}

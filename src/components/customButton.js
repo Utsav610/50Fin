@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import colors from '../constants/colors';
 
 export default function CustomButton({ title, onPress, style }) {
   return (
@@ -21,7 +22,9 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   buttonText: {
-    color: 'white',
+    color:colors.blackColor,
     textAlign: 'center',
+    fontSize:16,
+    fontWeight:600
   },
 });
