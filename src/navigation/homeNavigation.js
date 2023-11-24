@@ -7,12 +7,13 @@ import {
   View,
   Text,
 } from 'react-native';
-import {CurvedBottomBarExpo} from 'react-native-curved-bottom-bar';
+import { CurvedBottomBarExpo } from 'react-native-curved-bottom-bar';
 import Home from '../screens/homeScreen';
 import Profile from '../screens/profile';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../constants/colors';
 
-export default function HomeNavigation({navigation}) {
+export default function HomeNavigation({ navigation }) {
   const _renderIcon = (routeName, selectedTab) => {
     let icon = '';
 
@@ -29,11 +30,11 @@ export default function HomeNavigation({navigation}) {
       <Icon
         name={icon}
         size={30}
-        color={routeName === selectedTab ? 'black' : 'gray'}
+        color={routeName === selectedTab ? colors.secondary : colors.whiteColor}
       />
     );
   };
-  const renderTabBar = ({routeName, selectedTab, navigate}) => {
+  const renderTabBar = ({ routeName, selectedTab, navigate }) => {
     return (
       <TouchableOpacity
         onPress={() => navigate(routeName)}
@@ -50,13 +51,13 @@ export default function HomeNavigation({navigation}) {
       shadowStyle={styles.shawdow}
       height={55}
       circleWidth={50}
-      bgColor="white"
+      bgColor='#232A2A'
       initialRouteName="title1"
       borderTopLeftRight
-      renderCircle={({selectedTab, navigate}) => (
+      renderCircle={({ selectedTab, navigate }) => (
         <Animated.View style={styles.btnCircleUp}>
           <TouchableOpacity style={styles.button}>
-          <Icon name={'currency-inr'} color="gray" size={30} />
+            <Icon name={'currency-inr'} color="#828DFF" size={30} />
           </TouchableOpacity>
         </Animated.View>
       )}
@@ -64,11 +65,11 @@ export default function HomeNavigation({navigation}) {
       <CurvedBottomBarExpo.Screen
         name="title1"
         position="LEFT"
-        component={() => <Home navigation={navigation}/>}
+        component={() => <Home navigation={navigation} />}
       />
       <CurvedBottomBarExpo.Screen
         name="title2"
-        component={() => <Profile navigation={navigation}/>}
+        component={() => <Profile navigation={navigation} />}
         position="RIGHT"
       />
     </CurvedBottomBarExpo.Navigator>
@@ -100,7 +101,7 @@ export const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#E8E8E8',
+    backgroundColor: '#3B45AC',
     bottom: 30,
     shadowColor: '#000',
     shadowOffset: {
@@ -110,6 +111,8 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
     elevation: 1,
+    borderWidth: 2,
+    borderColor: '#828DFF'
   },
   imgCircle: {
     width: 30,

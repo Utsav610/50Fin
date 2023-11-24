@@ -5,7 +5,7 @@ import colors from '../constants/colors';
 export default function CustomButton({ title, onPress, style }) {
   return (
     <TouchableOpacity
-      style={[styles.button, style]} 
+      style={[styles.button, style]}
       onPress={onPress}
     >
       <Text style={styles.buttonText}>{title}</Text>
@@ -22,9 +22,9 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   buttonText: {
-    color:colors.blackColor,
+    color: colors.blackColor,
     textAlign: 'center',
-    fontSize:16,
-    fontWeight:600
+    fontSize: 16,
+
   },
 });

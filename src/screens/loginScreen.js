@@ -3,15 +3,16 @@ import React from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { TextInput } from 'react-native-paper';
 import CustomButton from '../components/customButton';
+import colors from '../constants/colors';
 
 
 export default function LoginScreen({ navigation }) {
   return (
     <KeyboardAwareScrollView
-      style={{ flex: 1, backgroundColor: '#ffffff' }}
+      style={{ flex: 1, backgroundColor: colors.blackColor }}
       contentContainerStyle={styles.container}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled={false}>
+    >
+
       <View style={styles.inner}>
         <Text style={styles.header}>Login</Text>
         <TextInput
@@ -29,9 +30,7 @@ export default function LoginScreen({ navigation }) {
         <CustomButton
           style={{ width: '100%' }}
           title={'Login'}
-          onPress={() => {
-            navigation.navigate('HomeNavigation');
-          }}
+          onPress={() => { navigation.navigate('HomeNavigation') }}
         />
 
         <Text style={styles.signupText}>
@@ -44,6 +43,7 @@ export default function LoginScreen({ navigation }) {
         </Text>
       </View>
     </KeyboardAwareScrollView>
+
   );
 }
 
@@ -60,10 +60,11 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     marginBottom: 48,
+    color: colors.whiteColor
   },
   input: {
     height: 40,
-    borderColor: '#cccccc',
+    borderColor: colors.gray,
     borderWidth: 1,
     marginBottom: 8,
     paddingLeft: 5,
@@ -72,8 +73,9 @@ const styles = StyleSheet.create({
   signupText: {
     marginTop: 16,
     textAlign: 'center',
+    color: colors.whiteColor
   },
   signupLink: {
-    color: 'blue',
+    color: '#828DFF',
   },
 });

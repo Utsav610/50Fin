@@ -8,7 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import PieChart from 'react-native-pie-chart';
 import CustomButton from '../components/customButton';
@@ -17,22 +17,22 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
 import CustomHeader from '../components/customHeader';
 
-export default function HomeScreen({navigation}) {
-  console.log('navigation', navigation);
+export default function HomeScreen({ navigation }) {
+
   const widthAndHeight = 250;
   const series = [50, 25, 25];
-  const sliceColor = ['#7CC7FE', '#828DFF', '#55FEEE'];
+  const sliceColor = ['#7CC7FE', colors.onSecondary, colors.secondary];
 
   const type = ['Small Cap', 'Mid Cap', 'Large Cap'];
 
   const [loadMore, setLoadMore] = useState(true);
 
-  const renderViewMoreButton = ({navigation}) => (
+  const renderViewMoreButton = ({ navigation }) => (
     <TouchableOpacity
       style={{
         borderTopWidth: 1,
-        borderTopColor: '#828DFF',
-        backgroundColor: '#171C48',
+        borderTopColor: colors.onSecondary,
+        backgroundColor: colors.secondaryBackgroundColor,
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
         alignItems: 'center',
@@ -41,14 +41,14 @@ export default function HomeScreen({navigation}) {
       onPress={() => {
         navigation.navigate('Amc');
       }}>
-      <Text style={{color: colors.secondary}}>See All AMC</Text>
+      <Text style={{ color: colors.secondary }}>See All AMC</Text>
     </TouchableOpacity>
   );
 
-  const renderListItem = ({item}) => (
-    <View style={{padding: 10, width: '49%'}}>
+  const renderListItem = ({ item }) => (
+    <View style={{ padding: 10, width: '49%' }}>
       <Image source={require('../assests/image1.jpeg')} style={styles.image} />
-      <Text style={{color: 'white'}}>{item.scrip_name}</Text>
+      <Text style={{ color: 'white' }}>{item.scrip_name}</Text>
     </View>
   );
 
@@ -71,20 +71,20 @@ export default function HomeScreen({navigation}) {
         <Text style={styles.titleText}>Portfolio Analysis</Text>
         <LinearGradient
           colors={['#104C7A', '#07304F', '#083250']}
-          style={[styles.linearGradient, {height: 150, padding: 10}]}>
+          style={[styles.linearGradient, { height: 150, padding: 10 }]}>
           <View style={styles.portfolioContainer}>
             <View style={styles.portfolioTextContainer}>
-              <Text>Fetch Portfolio</Text>
-              <Text>Get a free x-ray of your investment</Text>
+              <Text style={{ color: colors.whiteColor }}>Fetch Portfolio</Text>
+              <Text style={{ color: colors.whiteColor, marginTop: 15 }}>Get a free x-ray of your investment</Text>
             </View>
             <View style={styles.portfolioIconContainer}>
-              <Icon name="chevron-right" size={28} color="#000000" />
+              <Icon name="chevron-right" size={28} color={colors.blackColor} />
             </View>
           </View>
         </LinearGradient>
 
         <View
-          style={{backgroundColor: '#0A0C1F', borderRadius: 20, marginTop: 20}}>
+          style={{ backgroundColor: '#0A0C1F', borderRadius: 20, marginTop: 20 }}>
           <View
             style={{
               flexDirection: 'row',
@@ -108,12 +108,12 @@ export default function HomeScreen({navigation}) {
                     marginRight: 5,
                   }}
                 />
-                <Text style={{color: 'white'}}>{item}</Text>
+                <Text style={{ color: 'white' }}>{item}</Text>
               </View>
             ))}
           </View>
 
-          <View style={{alignSelf: 'center'}}>
+          <View style={{ alignSelf: 'center' }}>
             <PieChart
               widthAndHeight={widthAndHeight}
               series={series}
@@ -137,23 +137,23 @@ export default function HomeScreen({navigation}) {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{color: '#FFFFFF', fontSize: 18, fontWeight: 700}}>
+          <Text style={{ color: colors.whiteColor, fontSize: 18, fontWeight: 700 }}>
             AMC
           </Text>
           <View
             style={{
               borderWidth: 1,
-              borderColor: '#828DFF',
+              borderColor: colors.onSecondary,
               flexDirection: 'row',
               alignItems: 'center',
-              backgroundColor: '#171C48',
+              backgroundColor: colors.secondaryBackgroundColor,
               borderRadius: 20,
               paddingHorizontal: 10,
             }}>
             <TextInput
               placeholder="Search AMC"
-              placeholderTextColor={'#CCCC'}
-              style={{padding: 8}}
+              placeholderTextColor={colors.gray}
+              style={{ padding: 8 }}
             />
             <Icon name="magnify" size={28} color={colors.whiteColor} />
           </View>
@@ -162,7 +162,7 @@ export default function HomeScreen({navigation}) {
         <View
           style={{
             borderWidth: 1,
-            borderColor: '#828DFF',
+            borderColor: colors.onSecondary,
             marginBottom: 50,
             marginTop: 15,
             borderRadius: 15,
@@ -172,7 +172,7 @@ export default function HomeScreen({navigation}) {
             data={stockData.slice(0, 6)}
             renderItem={renderListItem}
             numColumns={2}
-            ListFooterComponent={() => renderViewMoreButton({navigation})}
+            ListFooterComponent={() => renderViewMoreButton({ navigation })}
           />
         </View>
       </ScrollView>
