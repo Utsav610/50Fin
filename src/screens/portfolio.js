@@ -7,9 +7,18 @@ import RnRangeSlider from 'rn-range-slider';
 import Fund from '../components/fund'
 import CustomButton from '../components/customButton'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
 export default function Portfolio({ navigation }) {
 
+  const [sliderOneChanging, setSliderOneChanging] = React.useState(false);
+  const [sliderOneValue, setSliderOneValue] = React.useState([5]);
+  console.log('Slider', sliderOneValue)
+  const sliderOneValuesChangeStart = () => setSliderOneChanging(true);
+
+  const sliderOneValuesChange = values => setSliderOneValue(values);
+
+  sliderOneValuesChangeFinish = () => setSliderOneChanging(false);
 
   return (
     <View style={styles.container} >
@@ -23,6 +32,25 @@ export default function Portfolio({ navigation }) {
           colors={['#1A214F', '#252E6F']}
           style={styles.linearGradient}>
           <Text style={styles.amountText}>Set Loan Amount</Text>
+
+          <MultiSlider
+            values={sliderOneValue}
+            sliderLength={310}
+            onValuesChangeStart={sliderOneValuesChangeStart}
+            onValuesChange={sliderOneValuesChange}
+            min={25000}
+            max={81000}
+            step={1000}
+            style={{ padding: 0, margin: 0 }}
+            valuePrefix='min'
+          // onValuesChangeFinish={sliderOneValuesChangeFinish}
+          />
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
+            <Text style={styles.text}>Min. 25000</Text>
+            <Text style={styles.text}>Max 81000</Text>
+          </View>
+
           <View
             style={{
               borderWidth: 1,
@@ -34,11 +62,18 @@ export default function Portfolio({ navigation }) {
               paddingHorizontal: 10,
               width: '60%'
             }}>
+
             <TextInput
-              style={{ padding: 8 }}
+              style={{
+                padding: 8,
+                color: 'white',
+                textAlign: 'center',
+                fontSize: 17,
+                fontWeight: '600',
+                paddingLeft: '35%'
+              }}
               editable={false}
-            // value={searchText}
-            // onChangeText={text => setSearchText(text)}
+              value={`${sliderOneValue[0]}`}
             />
           </View>
         </LinearGradient>

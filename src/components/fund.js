@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TextInput } from 'react-native'
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 import colors from '../constants/colors'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -47,7 +47,9 @@ export default function Fund() {
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', marginTop: 10 }}>
           <Text style={[styles.text, { color: colors.secondary, marginRight: 8, fontSize: 15 }]}>Max: 6205.50</Text>
-          <Icon name="checkbox-blank-outline" size={25} color={colors.secondary} />
+          <TouchableOpacity onPress={() => { }}>
+            <Icon name="checkbox-blank-outline" size={25} color={colors.secondary} />
+          </TouchableOpacity>
         </View>
       </View>
     </LinearGradient>

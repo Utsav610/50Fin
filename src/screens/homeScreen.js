@@ -16,11 +16,14 @@ import stockData from '../Data/stockData';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
 import CustomHeader from '../components/customHeader';
+import { AreaChart, Grid } from 'react-native-svg-charts'
+import * as shape from 'd3-shape'
 
 export default function HomeScreen({ navigation }) {
 
   const widthAndHeight = 250;
   const series = [50, 25, 25];
+  const data = [50, 20, 60, 80, 45, 91, 44, 50,]
   const sliceColor = ['#7CC7FE', colors.onSecondary, colors.secondary];
 
   const type = ['Small Cap', 'Mid Cap', 'Large Cap'];
@@ -60,7 +63,7 @@ export default function HomeScreen({ navigation }) {
           colors={['#104C7A', '#07304F', '#083250']}
           style={styles.linearGradient}>
           <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitle}>Refer</Text>
+            <Image source={require('../assests/refer.jpeg')} style={{ width: 50, height: 50, marginRight: 10 }} />
             <Text style={styles.sectionText}>
               Help people you know obtain a loan against their mutual funds at
               X5 per month
@@ -71,7 +74,7 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.titleText}>Portfolio Analysis</Text>
         <LinearGradient
           colors={['#104C7A', '#07304F', '#083250']}
-          style={[styles.linearGradient, { height: 150, padding: 10 }]}>
+          style={[styles.linearGradient]}>
           <View style={styles.portfolioContainer}>
             <View style={styles.portfolioTextContainer}>
               <Text style={{ color: colors.whiteColor }}>Fetch Portfolio</Text>
@@ -81,6 +84,16 @@ export default function HomeScreen({ navigation }) {
               <Icon name="chevron-right" size={28} color={colors.blackColor} />
             </View>
           </View>
+          <AreaChart
+            style={{ height: 105 }}
+            data={data}
+            showGrid={false}
+            contentInset={{ top: 0, bottom: 0 }}
+            curve={shape.curveNatural}
+            svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
+          >
+            <Grid />
+          </AreaChart>
         </LinearGradient>
 
         <View
@@ -199,13 +212,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     borderRadius: 15,
-  },
-  sectionTitle: {
-    color: 'white',
+    flex: 1
   },
   sectionText: {
     color: 'white',
     flexWrap: 'wrap',
+    flex: 1
   },
   titleText: {
     color: 'white',
@@ -217,6 +229,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    padding: 10
   },
   portfolioTextContainer: {
     flex: 1,

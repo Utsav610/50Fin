@@ -1,0 +1,85 @@
+diff --git a/node_modules/@ptomasroos/react-native-multi-slider/MultiSlider.js b/node_modules/@ptomasroos/react-native-multi-slider/MultiSlider.js
+index f3114aa..a7c3d03 100755
+--- a/node_modules/@ptomasroos/react-native-multi-slider/MultiSlider.js
++++ b/node_modules/@ptomasroos/react-native-multi-slider/MultiSlider.js
+@@ -17,10 +17,10 @@ import { createArray, valueToPosition, positionToValue } from './converters';
+ export default class MultiSlider extends React.Component {
+   static defaultProps = {
+     values: [0],
+-    onValuesChangeStart: () => {},
+-    onValuesChange: values => {},
+-    onValuesChangeFinish: values => {},
+-    onMarkersPosition: values => {},
++    onValuesChangeStart: () => { },
++    onValuesChange: values => { },
++    onValuesChangeFinish: values => { },
++    onMarkersPosition: values => { },
+     step: 1,
+     min: 0,
+     max: 10,
+@@ -154,8 +154,8 @@ export default class MultiSlider extends React.Component {
+       (this.props.allowOverlap
+         ? 0
+         : this.props.minMarkerOverlapDistance > 0
+-        ? this.props.minMarkerOverlapDistance
+-        : this.stepLength);
++          ? this.props.minMarkerOverlapDistance
++          : this.stepLength);
+     var top = trueTop === 0 ? 0 : trueTop || this.props.sliderLength;
+     var confined =
+       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
+@@ -221,8 +221,8 @@ export default class MultiSlider extends React.Component {
+       (this.props.allowOverlap
+         ? 0
+         : this.props.minMarkerOverlapDistance > 0
+-        ? this.props.minMarkerOverlapDistance
+-        : this.stepLength);
++          ? this.props.minMarkerOverlapDistance
++          : this.stepLength);
+     var top = this.props.sliderLength;
+     var confined =
+       unconfined < bottom ? bottom : unconfined > top ? top : unconfined;
+@@ -570,7 +570,7 @@ export default class MultiSlider extends React.Component {
+ const styles = StyleSheet.create({
+   container: {
+     position: 'relative',
+-    height: 50,
++    height: 30,
+     justifyContent: 'center',
+   },
+   fullTrack: {
+@@ -584,7 +584,7 @@ const styles = StyleSheet.create({
+         backgroundColor: '#A7A7A7',
+       },
+       android: {
+-        height: 2,
++        height: 5,
+         backgroundColor: '#CECECE',
+       },
+       web: {
+@@ -597,20 +597,20 @@ const styles = StyleSheet.create({
+   selectedTrack: {
+     ...Platform.select({
+       ios: {
+-        backgroundColor: '#095FFF',
++        backgroundColor: '#55FEEE',
+       },
+       android: {
+-        backgroundColor: '#0D8675',
++        backgroundColor: '#55FEEE',
+       },
+       web: {
+-        backgroundColor: '#095FFF',
++        backgroundColor: '#55FEEE',
+       },
+     }),
+   },
+   markerContainer: {
+     position: 'absolute',
+-    width: 48,
+-    height: 48,
++    width: 52,
++    height: 52,
+     backgroundColor: 'transparent',
+     justifyContent: 'center',
+     alignItems: 'center',
