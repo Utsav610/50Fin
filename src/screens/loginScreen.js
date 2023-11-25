@@ -9,11 +9,12 @@ import { Login } from '../redux/action';
 import {useForm, Controller} from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup';
+import {useSelector, useDispatch} from 'react-redux'
 
 export default function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const dispatch=useDispatch();
   const schema = yup.object().shape({
     email: yup.string().email('Invalid email').required('Email is required'),
     password: yup.string().required('Password is required'),
@@ -31,7 +32,7 @@ export default function LoginScreen({navigation}) {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        Login({ email, password });
+        dispatch(Login({ email, password }));
         navigation.navigate('HomeNavigation');
       })
       .catch(error => {
@@ -146,6 +147,8 @@ const styles = StyleSheet.create({
     color: '#828DFF',
   },
   errorText:{
-    color:'red'
+    color:'red',
+    fontSize:13,
+    marginBottom:5,
   }
 });

@@ -158,16 +158,7 @@ export default function HomeScreen({ navigation }) {
             AMC
           </Text>
           <View
-            style={{
-              borderWidth: 1,
-              borderColor: colors.onSecondary,
-              flexDirection: 'row',
-              justifyContent:'space-between',
-              alignItems: 'center',
-              backgroundColor: colors.secondaryBackgroundColor,
-              borderRadius: 20,
-              paddingHorizontal: 10,
-            }}>
+            style={styles.searchView}>
             <TextInput
             style={{width:'40%' , color:colors.whiteColor}}
               placeholder="Search AMC"
@@ -253,4 +244,14 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 15,
   },
+  searchView:{
+    borderWidth: 1,
+    borderColor: colors.onSecondary,
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    alignItems: 'center',
+    backgroundColor: colors.secondaryBackgroundColor,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+  }
 });

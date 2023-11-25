@@ -7,12 +7,28 @@ import colors from '../constants/colors';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import auth from '@react-native-firebase/auth';
+import {useForm, Controller} from 'react-hook-form';
+import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 
+const schema = yup.object().shape({
+  email: yup.string().email('Invalid email').required('Email is required'),
+  password: yup.string().required('Password is required'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm Password is required'),
+});
 
-export default function SignupScreen({navigation}) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+export default SignupScreen = ({navigation}) => {
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -29,9 +45,9 @@ export default function SignupScreen({navigation}) {
     setShowDatePicker(true);
   };
 
-  const handleSignup = () => {
+  const handleSignup = data => {
     auth()
-      .createUserWithEmailAndPassword(email, password)
+      .createUserWithEmailAndPassword(data.email, data.password)
       .then(() => {
         navigation.navigate('HomeNavigation');
       })
@@ -57,29 +73,61 @@ export default function SignupScreen({navigation}) {
       <View style={styles.inner}>
         <Text style={styles.header}>Signup</Text>
 
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          value={email}
-          onChangeText={text => setEmail(text)}
+        <Controller
+          control={control}
+          render={({field: {onChange, value}}) => (
+            <>
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                value={value}
+                onChangeText={onChange}
+              />
+              <Text style={styles.errorText}>{errors.email?.message}</Text>
+            </>
+          )}
+          name="email"
+          defaultValue=""
         />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry
-          value={password}
-          onChangeText={text => setPassword(text)}
+        <Controller
+          control={control}
+          render={({field: {onChange, value}}) => (
+            <>
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                secureTextEntry
+                value={value}
+                onChangeText={onChange}
+              />
+              <Text style={styles.errorText}>{errors.password?.message}</Text>
+            </>
+          )}
+          name="password"
+          defaultValue=""
         />
 
-        <TextInput
-          style={styles.input}
-          placeholder="Confirm Password"
-          secureTextEntry
-          value={confirmPassword}
-          onChangeText={text => setConfirmPassword(text)}
+        <Controller
+          control={control}
+          render={({field: {onChange, value}}) => (
+            <>
+              <TextInput
+                style={styles.input}
+                placeholder="Confirm Password"
+                secureTextEntry
+                value={value}
+                onChangeText={onChange}
+              />
+              <Text style={styles.errorText}>
+                {errors.confirmPassword?.message}
+              </Text>
+            </>
+          )}
+          name="confirmPassword"
+          defaultValue=""
         />
 
         <TouchableOpacity onPress={showAndroidDatePicker}>
@@ -103,12 +151,12 @@ export default function SignupScreen({navigation}) {
         <CustomButton
           style={{width: '100%'}}
           title={'Signup'}
-          onPress={handleSignup}
+          onPress={handleSubmit(handleSignup)}
         />
       </View>
     </KeyboardAwareScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -149,4 +197,10 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     color: colors.secondary,
   },
+  errorText:{
+    color:'red',
+    marginBottom:5,
+    textAlign:'left',
+    fontSize:13
+  }
 });
