@@ -38,12 +38,12 @@ export default function AmcScreen({ navigation }) {
             borderRadius: 20,
             paddingHorizontal: 10,
             marginLeft: 35,
-            width:'60%'
+            width:'60%',
           }}>
           <TextInput
             placeholder="Search AMC"
             placeholderTextColor={'#CCCC'}
-            style={{ padding: 8 }}
+            style={{ padding: 8 , color:colors.whiteColor }}
             value={searchText}
             onChangeText={text => setSearchText(text)}
           />

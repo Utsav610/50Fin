@@ -28,8 +28,6 @@ export default function HomeScreen({ navigation }) {
 
   const type = ['Small Cap', 'Mid Cap', 'Large Cap'];
 
-  const [loadMore, setLoadMore] = useState(true);
-
   const renderViewMoreButton = ({ navigation }) => (
     <TouchableOpacity
       style={{
@@ -53,6 +51,12 @@ export default function HomeScreen({ navigation }) {
       <Image source={require('../assests/image1.jpeg')} style={styles.image} />
       <Text style={{ color: 'white' }}>{item.scrip_name}</Text>
     </View>
+  );
+
+  const [searchText, setSearchText] = useState('');
+  
+  const filteredStockData = stockData.filter(item =>
+    item.scrip_name.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return (
@@ -158,15 +162,17 @@ export default function HomeScreen({ navigation }) {
               borderWidth: 1,
               borderColor: colors.onSecondary,
               flexDirection: 'row',
+              justifyContent:'space-between',
               alignItems: 'center',
               backgroundColor: colors.secondaryBackgroundColor,
               borderRadius: 20,
               paddingHorizontal: 10,
             }}>
             <TextInput
+            style={{width:'40%' , color:colors.whiteColor}}
               placeholder="Search AMC"
               placeholderTextColor={colors.gray}
-              style={{ padding: 8 }}
+              onChangeText={(text)=>{setSearchText(text)}}
             />
             <Icon name="magnify" size={28} color={colors.whiteColor} />
           </View>
@@ -182,7 +188,7 @@ export default function HomeScreen({ navigation }) {
           }}>
 
           <FlatList
-            data={stockData.slice(0, 6)}
+            data={searchText.length>0 ? filteredStockData:stockData.slice(0, 6)}
             renderItem={renderListItem}
             numColumns={2}
             ListFooterComponent={() => renderViewMoreButton({ navigation })}

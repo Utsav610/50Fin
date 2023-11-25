@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { TextInput } from 'react-native-paper';
+import React, {useState} from 'react';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {TextInput} from 'react-native-paper';
 import CustomButton from '../components/customButton';
 import colors from '../constants/colors';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import auth from '@react-native-firebase/auth';
 
 
-export default function SignupScreen() {
+export default function SignupScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,20 +29,31 @@ export default function SignupScreen() {
     setShowDatePicker(true);
   };
 
-
-
   const handleSignup = () => {
-    // Implement your signup logic here
-    // You can access the entered data using the state variables (email, password, confirmPassword, dob)
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        navigation.navigate('HomeNavigation');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
+      });
   };
 
   return (
     <KeyboardAwareScrollView
-      style={{ flex: 1, backgroundColor: colors.blackColor }}
+      style={{flex: 1, backgroundColor: colors.blackColor}}
       contentContainerStyle={styles.container}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled={false}
-    >
+      resetScrollToCoords={{x: 0, y: 0}}
+      scrollEnabled={false}>
       <View style={styles.inner}>
         <Text style={styles.header}>Signup</Text>
 
@@ -51,7 +63,7 @@ export default function SignupScreen() {
           keyboardType="email-address"
           autoCapitalize="none"
           value={email}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={text => setEmail(text)}
         />
 
         <TextInput
@@ -59,7 +71,7 @@ export default function SignupScreen() {
           placeholder="Password"
           secureTextEntry
           value={password}
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={text => setPassword(text)}
         />
 
         <TextInput
@@ -67,7 +79,7 @@ export default function SignupScreen() {
           placeholder="Confirm Password"
           secureTextEntry
           value={confirmPassword}
-          onChangeText={(text) => setConfirmPassword(text)}
+          onChangeText={text => setConfirmPassword(text)}
         />
 
         <TouchableOpacity onPress={showAndroidDatePicker}>
@@ -75,11 +87,7 @@ export default function SignupScreen() {
             <Text style={styles.androidDatePickerText}>
               {selectedDate.toLocaleDateString()}
             </Text>
-            <FontAwesome5
-              name="calendar-alt"
-              size={20}
-              style={styles.icon}
-            />
+            <FontAwesome5 name="calendar-alt" size={20} style={styles.icon} />
           </View>
         </TouchableOpacity>
 
@@ -93,7 +101,7 @@ export default function SignupScreen() {
         )}
 
         <CustomButton
-          style={{ width: '100%' }}
+          style={{width: '100%'}}
           title={'Signup'}
           onPress={handleSignup}
         />
@@ -115,7 +123,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     marginBottom: 48,
-    color: colors.whiteColor
+    color: colors.whiteColor,
   },
   input: {
     height: 40,
